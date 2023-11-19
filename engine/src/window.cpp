@@ -22,6 +22,20 @@ Window::Window(int width, int height, const std::string& name)
 }
 
 /**
+ * @brief Default Deconstructor
+ */
+Window::~Window(){
+    glfwDestroyWindow(window);
+    glfwTerminate();
+}
+
+void Window::resize_callback(GLFWwindow* window, int width, int height){
+    (void)window;
+    (void)width;
+    (void)height;
+}
+
+/**
  * @brief Creates window
  * @note Called by constructor
  * @return void
@@ -33,7 +47,7 @@ void Window::init(){
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     // Create GLFW window
-    window = glfwCreateWindow(width, height, name, nullptr, nullptr);
+    window = glfwCreateWindow(width, height, name.c_str(), nullptr, nullptr);
     glfwSetWindowUserPointer(window, this);
     
     // Set function to call on any window resize event

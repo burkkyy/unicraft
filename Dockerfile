@@ -8,10 +8,12 @@ RUN yes | apt install \
     build-essential \
     git \
     cmake \
-    wget
+    wget \
+    spirv-tools \
+    libglm-dev \
+    xorg-dev
 
 # Install glfw
-RUN yes | apt install xorg-dev
 RUN git clone https://github.com/glfw/glfw.git
 RUN cd glfw && \
     mkdir build && \
@@ -20,14 +22,6 @@ RUN cd glfw && \
     make && \
     make install
 RUN mv /glfw/build/src/libglfw3.a /usr/local/lib/
-
-# Install build dependencies
-RUN yes | apt install \
-#    vulkan-validationlayers-dev \
-    spirv-tools \
-    libglm-dev 
-#    libxxf86vm-dev \
-#    libxi-dev
 
 # Install vulkan sdk
 RUN wget https://sdk.lunarg.com/sdk/download/1.3.268.0/linux/vulkan-sdk.tar.gz
