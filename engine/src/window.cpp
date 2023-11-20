@@ -5,6 +5,7 @@
  */
 
 #include "window.hpp"
+#include "logger.hpp"
 
 namespace uni {
 namespace eng {
@@ -52,6 +53,22 @@ void Window::init(){
     
     // Set function to call on any window resize event
     glfwSetFramebufferSizeCallback(window, resize_callback);
+}
+
+/**
+ * @brief Creates surface for vulkan
+ *
+ * Creates a KHR surface for vulkan to draw by using GLFW.
+ *
+ * @param[in] instance Vulkan Instance
+ * @param[out] surface KHR Surface created
+ * @return void
+ */
+void Window::create_surface(VkInstance instance, VkSurfaceKHR* surface){
+    if(glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS){
+        VK_ERROR("Failed to create VkSurfaceKHR.");
+    }
+    VK_INFO("Created VkSurfaceKHR.");
 }
 
 }   // namespace eng

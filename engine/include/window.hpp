@@ -29,6 +29,8 @@ public:
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
 
+	void create_surface(VkInstance instance, VkSurfaceKHR* surface);
+
 private:
 	static void resize_callback(GLFWwindow* window, int width, int height);
 	void init();

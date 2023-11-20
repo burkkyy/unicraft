@@ -11,9 +11,31 @@
 #include <vulkan/vulkan.h>
 
 #include <vector>
+#include <optional>
 
 namespace uni {
 namespace eng {
+
+/**
+ * @brief Helper Struct 
+ */
+struct SwapChainSupportDetails {
+    std::vector<VkSurfaceFormatKHR> formats;
+    std::vector<VkPresentModeKHR> present_modes;
+    VkSurfaceCapabilitiesKHR capabilities;
+};
+
+/**
+ * @brief Helper Struct
+ */
+struct QueueFamilyIndices {
+    std::optional<uint32_t> graphics;
+    std::optional<uint32_t> present;
+
+    bool filled(){
+        return graphics.has_value() && present.has_value();
+    }
+};
 
 /**
  * @brief Creates interface with vulkan device
@@ -40,19 +62,31 @@ private:
     VkResult create_debug_utils_messenger_EXT(VkInstance, const VkDebugUtilsMessengerCreateInfoEXT*, const VkAllocationCallbacks*, VkDebugUtilsMessengerEXT*);
     void destroy_debug_utils_messenger_EXT(VkInstance, VkDebugUtilsMessengerEXT, const VkAllocationCallbacks*);
 
+    void pick_physical_device();
+    bool is_physical_device_suitable(VkPhysicalDevice physical_device);
+    QueueFamilyIndices find_queue_families(VkPhysicalDevice physical_device);
+    bool check_device_extension_support(VkPhysicalDevice physical_device);
+    SwapChainSupportDetails query_swapchain_support(VkPhysicalDevice physical_device);
+
+    void create_logical_device();
+
     VkInstance instance;
     Window& window;
     VkDebugUtilsMessengerEXT debug_messenger;
-
+    VkSurfaceKHR surface;
+    VkPhysicalDevice physical_device = VK_NULL_HANDLE;
+    VkDevice device;
+    VkQueue graphics_queue;
+    VkQueue present_queue;
 
 #ifdef NDEBUG
     const bool enable_validation_layers = false;
-    std::vector<const char*> enabled_layers;
+    const std::vector<const char*> enabled_layers;
 #else
     const bool enable_validation_layers = true;
-    std::vector<const char*> enabled_layers = { "VK_LAYER_KHRONOS_validation" };
+    const std::vector<const char*> enabled_layers = {"VK_LAYER_KHRONOS_validation"};
 #endif
-
+    const std::vector<const char*> enabled_extensions = {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
 };
 
 }   // namespace eng
