@@ -1,5 +1,5 @@
 /**
- * @file device.hpp
+ * @file engine/include/device.hpp
  * @author Caleb Burke
  * @date Nov 18, 2023
  */
@@ -51,6 +51,12 @@ public:
     Device(Device&&) = delete;
     Device& operator=(Device&&) = delete;
 
+    VkDevice get_device() const { return device; }
+    VkSurfaceKHR get_surface() const { return surface; }
+    VkQueue get_graphics_queue() const { return graphics_queue; }
+    VkQueue get_present_queue() const { return present_queue; }
+    SwapChainSupportDetails get_swapchain_support() const { return query_swapchain_support(physical_device); }
+
 private:
     void initialize();
     void create_vulkan_instance();
@@ -86,7 +92,9 @@ private:
     const bool enable_validation_layers = true;
     const std::vector<const char*> enabled_layers = {"VK_LAYER_KHRONOS_validation"};
 #endif
-    const std::vector<const char*> enabled_extensions = {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+    const std::vector<const char*> enabled_extensions = {
+        VK_KHR_SWAPCHAIN_EXTENSION_NAME
+    };
 };
 
 }   // namespace eng

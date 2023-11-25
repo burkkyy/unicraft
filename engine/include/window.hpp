@@ -33,7 +33,7 @@ public:
 
 private:
 	static void resize_callback(GLFWwindow* window, int width, int height);
-	void init();
+	void initialize();
 
 	int width, height;
 	std::string name;

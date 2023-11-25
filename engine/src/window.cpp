@@ -19,7 +19,7 @@ namespace eng {
  */
 Window::Window(int width, int height, const std::string& name)
 : width{width}, height{height}, name{name} {
-    init();
+    initialize();
 }
 
 /**
@@ -41,7 +41,7 @@ void Window::resize_callback(GLFWwindow* window, int width, int height){
  * @note Called by constructor
  * @return void
  */
-void Window::init(){
+void Window::initialize(){
     // Initialize GLFW
     glfwInit();
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
