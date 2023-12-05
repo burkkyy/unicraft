@@ -13,15 +13,20 @@ $(object_files): $(source_files)
 	$(CC) $(CFLAGS) -c $(patsubst build/obj/%.o,src/%.cpp,$@) -o $@
 
 .PHONY: release dev test clean
+release: clean
 release: CFLAGS += -DNDEBUG
 release: $(object_files) $(source_files)
 
+dev: clean
 dev: $(object_files) $(source_files)
 
 test: test.bin
-test.bin: test/test.cpp $(object_files) $(source_files)
+test: CFLAGS += -DNDEBUG
+
+test.bin: test/test.cpp clean $(object_files) $(source_files)
 	$(CC) $(CFLAGS) $< $(object_files) $(LDFLAGS) -o $@
 
 clean: 
-	-rm -rf build/
-	-rm *.bin *.out
+	@-rm -rf build/
+	@-rm *.bin *.out
+

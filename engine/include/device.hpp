@@ -55,7 +55,7 @@ public:
     VkSurfaceKHR get_surface() const { return surface; }
     VkQueue get_graphics_queue() const { return graphics_queue; }
     VkQueue get_present_queue() const { return present_queue; }
-    SwapChainSupportDetails get_swapchain_support() const { return query_swapchain_support(physical_device); }
+    SwapChainSupportDetails get_swapchain_support() { return query_swapchain_support(physical_device); }
 
 private:
     void initialize();

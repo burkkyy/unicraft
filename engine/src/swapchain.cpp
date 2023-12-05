@@ -6,6 +6,8 @@
 
 #include "swapchain.hpp"
 
+#include "logger.hpp"
+
 namespace uni {
 namespace eng {
 
@@ -37,7 +39,7 @@ void SwapChain::initialize(){
 void SwapChain::create_swapchain(){
     VkSwapchainCreateInfoKHR create_info = {};
     create_info.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-    create_info.surface = device.get_device();
+    create_info.surface = device.get_surface();
     create_info.minImageCount = 4;
     create_info.imageFormat = VK_FORMAT_R8G8B8A8_SRGB;
     create_info.imageColorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR;    // vkGetPhysicalDeviceSurfaceFormatsKHR

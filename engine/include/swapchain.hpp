@@ -6,6 +6,10 @@
 
 #pragma once
 
+#include "device.hpp"
+
+#include "vulkan/vulkan.h"
+
 namespace uni {
 namespace eng {
 
@@ -28,3 +32,4 @@ private:
 
 }   // namespace eng
 }   // namespace uni
+
