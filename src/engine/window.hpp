@@ -1,5 +1,5 @@
 /**
- * @file window.hpp
+ * @file src/engine/window.hpp
  * @author Caleb Burke
  * @date Nov 18, 2023
  */
@@ -22,17 +22,19 @@ namespace eng {
  */
 class Window {
 public:
-	Window(int width, int height, const std::string& name);
-	~Window();
-
 	// Prevents copying
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
+	
+	Window(int width, int height, const std::string& name);
+
+	~Window();
 
 	void create_surface(VkInstance instance, VkSurfaceKHR* surface);
 
 private:
 	static void resize_callback(GLFWwindow* window, int width, int height);
+
 	void initialize();
 
 	int width, height;
@@ -42,3 +44,4 @@ private:
 
 }	// namespace eng
 }	// namespace uni
+
